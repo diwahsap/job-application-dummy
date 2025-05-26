@@ -61,4 +61,4 @@ jobs:
           indonesian_pdf_forms.zip
           indonesian_ktp.zip
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
