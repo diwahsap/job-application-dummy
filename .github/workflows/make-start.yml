@@ -52,7 +52,7 @@ jobs:
 
     # Upload semua output ke release
     - name: Upload outputs to GitHub Release
-      if: github.event_name == 'release'
+      if: github.ref_type == 'v1.0.1'
       uses: softprops/action-gh-release@v2
       with:
         files: |
