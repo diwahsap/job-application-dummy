@@ -1,0 +1,46 @@
+name: Run Make Start and Save Outputs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python3 -m venv venv
+        source venv/bin/activate
+        pip install faker==19.6.2 reportlab==4.0.4 Pillow
+
+    - name: Run Make Start
+      run: make start
+
+    - name: Upload CSV Data
+      uses: actions/upload-artifact@v4
+      with:
+        name: indonesian_job_applications.csv
+        path: indonesian_job_applications.csv
+
+    - name: Upload PDF Forms
+      uses: actions/upload-artifact@v4
+      with:
+        name: indonesian_pdf_forms
+        path: indonesian_pdf_forms
+
+    - name: Upload e-KTP Images
+      uses: actions/upload-artifact@v4
+      with:
+        name: indonesian_ktp
+        path: indonesian_ktp
