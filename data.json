@@ -1,0 +1,21 @@
+{
+  "application_id": "APP20250050",
+  "nik": "117328587187",
+  "nama": "Capa  Budiyanto",
+  "ttl": "Sawahlunto, 19/12/1972",
+  "jenis_kelamin": "Male",
+  "golongan_darah": "O",
+  "alamat": "Jalan Monginsidi No. 245",
+  "rt/rw": "020/007",
+  "kel/desa": "Surabaya",
+  "kecamatan": "Surabaya",
+  "agama": "Islam",
+  "status": "Duda/Janda",
+  "pekerjaan": "Meteorologist",
+  "kewarganegaraan": "Indonesia",
+  "masa_berlaku": "26-05-2025",
+  "provinsi": "Sulawesi Utara",
+  "kota": "Surabaya",
+  "terbuat": "14-07-2024",
+  "pas_photo": "src/images.jpg"
+}

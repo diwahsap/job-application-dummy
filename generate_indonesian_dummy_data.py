@@ -211,8 +211,10 @@ def generate_indonesian_job_application_data(num_records=50):
         # Indonesian city for address
         city = random.choice(indonesian_cities)
         
-        # Generate Indonesian ID number format (NIK)
-        nik = f"{random.randint(1000, 9999)}{random.randint(10, 99)}{random.randint(10, 99)}{random.randint(1000, 9999)}"
+        # Generate Indonesian ID number format (NIK) - make it more realistic
+        province_codes = ["11", "12", "13", "14", "15", "16", "17", "18", "19", "21", "31", "32", "33", "34", "35", "36"]
+        selected_province_code = random.choice(province_codes)
+        nik = f"{selected_province_code}{random.randint(10, 99)}{random.randint(10, 99)}{random.randint(100000, 999999)}"
         
         # Indonesian phone number format
         phone_prefixes = ["08", "081", "082", "085", "087", "088", "089"]
@@ -237,6 +239,12 @@ def generate_indonesian_job_application_data(num_records=50):
             'gender': gender,
             'date_of_birth': fake.date_of_birth(minimum_age=22, maximum_age=65).strftime('%d/%m/%Y'),
             'nik': nik,  # Indonesian ID number
+            
+            # Add e-KTP specific fields
+            'birth_place': fake.city(),
+            'blood_type': random.choice(['A', 'B', 'AB', 'O', '-']),
+            'rt_rw': f"{random.randint(1, 20):03d}/{random.randint(1, 15):03d}",
+            'issue_date': fake.date_between(start_date='-10y', end_date='today').strftime('%d-%m-%Y'),
             
             # Contact Information (Indonesian format)
             'email': f"{first_name.lower()}.{last_name.lower()}@{fake.domain_name()}",
