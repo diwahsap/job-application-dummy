@@ -1,4 +1,4 @@
-# 🇮🇩 Indonesian Job Application + e-KTP Generator
+# Indonesian Job Application + e-KTP Generator
 
 This project generates dummy Indonesian job application data, PDF forms, and e-KTP images for testing and demo purposes.
 
