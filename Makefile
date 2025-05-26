@@ -8,7 +8,7 @@ NUM_RECORDS := 50
 DATA_FILE := indonesian_job_applications.csv
 EKTP_DATA := indonesian_ektp_data.csv
 PDF_FOLDER := indonesian_pdf_forms
-EKTP_IMAGES_FOLDER := results
+EKTP_IMAGES_FOLDER := indonesian_ktp
 
 # Colors
 GREEN := \033[0;32m
@@ -55,11 +55,11 @@ install:
 .PHONY: dummy-data
 dummy-data:
 	@echo "$(CYAN)📊 Generating Indonesian job application data...$(NC)"
-	@if [ ! -f "generate_indonesian_dummy_data.py" ]; then \
+	@if [ ! -f "src/generate_indonesian_dummy_data.py" ]; then \
 		echo "❌ generate_indonesian_dummy_data.py not found!"; \
 		exit 1; \
 	fi
-	$(PYTHON) generate_indonesian_dummy_data.py
+	$(PYTHON) src/generate_indonesian_dummy_data.py
 	@echo "$(GREEN)✅ Job application data generated: $(DATA_FILE)$(NC)"
 
 .PHONY: pdf
@@ -69,11 +69,11 @@ pdf:
 		echo "❌ $(DATA_FILE) not found! Run 'make dummy-data' first"; \
 		exit 1; \
 	fi
-	@if [ ! -f "generate_indonesian_pdf_forms.py" ]; then \
+	@if [ ! -f "src/generate_indonesian_pdf_forms.py" ]; then \
 		echo "❌ generate_indonesian_pdf_forms.py not found!"; \
 		exit 1; \
 	fi
-	$(PYTHON) generate_indonesian_pdf_forms.py
+	$(PYTHON) src/generate_indonesian_pdf_forms.py
 	@echo "$(GREEN)✅ PDF forms generated in: $(PDF_FOLDER)/$(NC)"
 
 .PHONY: ektp-images
@@ -83,32 +83,37 @@ ektp-images:
 		echo "❌ $(DATA_FILE) not found! Run 'make dummy-data' first"; \
 		exit 1; \
 	fi
-	@if [ ! -f "generate_ektp_images_from_csv.py" ]; then \
+	@if [ ! -f "src/generate_ektp_images_from_csv.py" ]; then \
 		echo "❌ generate_ektp_images_from_csv.py not found!"; \
 		exit 1; \
 	fi
-	@if [ ! -f "src/images.jpg" ]; then \
-		echo "⚠️  src/images.jpg not found. Please add a sample photo."; \
+	@if [ ! -f "src/assets/images.jpg" ]; then \
+		echo "⚠️  src/assets/images.jpg not found. Please add a sample photo."; \
 		exit 1; \
 	fi
-	$(PYTHON) generate_ektp_images_from_csv.py
+	$(PYTHON) src/generate_ektp_images_from_csv.py
 	@echo "$(GREEN)✅ e-KTP images generated in: $(EKTP_IMAGES_FOLDER)/$(NC)"
 
 # Combined commands
 .PHONY: start
 start: dummy-data pdf ektp-images
+	@[ -f "src/result.png" ] && rm -f src/result.png && echo "🗑️ Removed: src/result.png" || true
+	@[ -f "data.json" ] && rm -f data.json && echo "🗑️ Removed: data.json" || true
 	@echo "$(GREEN)🎉 All generation complete!$(NC)"
 	@echo "$(BLUE)📊 Data: $(DATA_FILE)$(NC)"
 	@echo "$(BLUE)📄 PDFs: $(PDF_FOLDER)/$(NC)"
-	@echo "$(BLUE)🖼️  Images: $(EKTP_IMAGES_FOLDER)/$(NC)"
+	@echo "$(BLUE)🖼️ Images: $(EKTP_IMAGES_FOLDER)/$(NC)"
+	
 
 # Cleanup
 .PHONY: clean-all
 clean-all:
 	@echo "$(CYAN)🧹 Cleaning all generated files...$(NC)"
-	@[ -f "$(DATA_FILE)" ] && rm -f $(DATA_FILE) && echo "🗑️  Removed: $(DATA_FILE)" || true
-	@[ -f "$(EKTP_DATA)" ] && rm -f $(EKTP_DATA) && echo "🗑️  Removed: $(EKTP_DATA)" || true
-	@[ -d "$(PDF_FOLDER)" ] && rm -rf $(PDF_FOLDER) && echo "🗑️  Removed: $(PDF_FOLDER)/" || true
-	@[ -d "$(EKTP_IMAGES_FOLDER)" ] && rm -rf $(EKTP_IMAGES_FOLDER) && echo "🗑️  Removed: $(EKTP_IMAGES_FOLDER)/" || true
-	@[ -f "validation_report.json" ] && rm -f validation_report.json && echo "🗑️  Removed: validation_report.json" || true
+	@[ -f "$(DATA_FILE)" ] && rm -f $(DATA_FILE) && echo "🗑️ Removed: $(DATA_FILE)" || true
+	@[ -f "$(EKTP_DATA)" ] && rm -f $(EKTP_DATA) && echo "🗑️ Removed: $(EKTP_DATA)" || true
+	@[ -d "$(PDF_FOLDER)" ] && rm -rf $(PDF_FOLDER) && echo "🗑️ Removed: $(PDF_FOLDER)/" || true
+	@[ -d "$(EKTP_IMAGES_FOLDER)" ] && rm -rf $(EKTP_IMAGES_FOLDER) && echo "🗑️ Removed: $(EKTP_IMAGES_FOLDER)/" || true
+	@[ -f "validation_report.json" ] && rm -f validation_report.json && echo "🗑️ Removed: validation_report.json" || true
+	@[ -f "data.json" ] && rm -f data.json && echo "🗑️ Removed: data.json" || true
+	@[ -f "src/result.png" ] && rm -f src/result.png && echo "🗑️ Removed: src/result.png" || true
 	@echo "$(GREEN)✅ Cleanup complete!$(NC)"

@@ -10,13 +10,13 @@ f=open("data.json")
 data=json.load(f)
 
 # open template
-tmp=Image.open("src/Template.png")
+tmp=Image.open("src/assets/Template.png")
 
 # open second image for pas photo
 pas_photo=Image.open(data["pas_photo"])
 
 # Font list
-font=["font/Arrial.ttf", "font/Sign.ttf","font/Ocr.ttf"]
+font=["src/font/Arrial.ttf", "src/font/Sign.ttf","src/font/Ocr.ttf"]
 # Font for provinsi
 fprov=ImageFont.truetype(font[0], size[0])
 # Font for NIK

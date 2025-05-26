@@ -5,12 +5,12 @@ import shutil
 from datetime import datetime
 
 # CONFIGURATION
-CSV_FILE = "indonesian_job_applications.csv"  # Input CSV with e-KTP data
-STATIC_PHOTO = "src/images.jpg"         # Path to static photo
-OUTPUT_DIR = "indonesian_ktp"                 # Where to save generated images
-CREATE_SCRIPT = "create.py"            # The image generator script
+CSV_FILE = "./indonesian_job_applications.csv"  # Input CSV with e-KTP data
+STATIC_PHOTO = "src/assets/images.jpg"         # Path to static photo
+OUTPUT_DIR = "indonesian_ktp/"                 # Where to save generated images
+CREATE_SCRIPT = "src/create.py"            # The image generator script
 
-TEMPLATE_JSON = "data.json"            # The temp data file for create.py
+TEMPLATE_JSON = "./data.json"            # The temp data file for create.py
 
 def make_data_json(row, photo_path, out_path):
     data = {
@@ -31,7 +31,7 @@ def make_data_json(row, photo_path, out_path):
         "masa_berlaku": datetime.now().strftime('%d-%m-%Y'),
         "provinsi": row["address_province"],
         "kota": row["address_city"],
-        "terbuat": row["issue_date"],
+        "terbuat": datetime.now().strftime('%d-%m-%Y'),
         "pas_photo": photo_path
     }
     with open(out_path, "w", encoding="utf-8") as f:
