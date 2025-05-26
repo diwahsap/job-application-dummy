@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   pull_request:
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -19,7 +21,7 @@ jobs:
         python-version: '3.11'
 
     - name: Install dependencies
-      run: pip install faker==19.6.2 reportlab==4.0.4 Pillow
+      run: pip install -r requirements.txt
 
     - name: Run Make Start
       run: make start
@@ -41,3 +43,22 @@ jobs:
       with:
         name: indonesian_ktp
         path: indonesian_ktp
+
+    # ZIP-kan hasil output sebelum upload ke release
+    - name: Zip output files for release
+      if: github.event_name == 'release'
+      run: |
+        zip -r indonesian_pdf_forms.zip indonesian_pdf_forms
+        zip -r indonesian_ktp.zip indonesian_ktp
+
+    # Upload semua output ke release
+    - name: Upload outputs to GitHub Release
+      if: github.event_name == 'release'
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          indonesian_job_applications.csv
+          indonesian_pdf_forms.zip
+          indonesian_ktp.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
