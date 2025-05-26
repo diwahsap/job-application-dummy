@@ -1,8 +1,7 @@
 import csv
 from faker import Faker
 import random
-from datetime import datetime, timedelta
-import re
+from datetime import datetime
 
 # Initialize Faker with Indonesian locale
 fake = Faker('id_ID')  # Indonesian locale
@@ -240,11 +239,22 @@ def generate_indonesian_job_application_data(num_records=50):
             'date_of_birth': fake.date_of_birth(minimum_age=22, maximum_age=65).strftime('%d/%m/%Y'),
             'nik': nik,  # Indonesian ID number
             
-            # Add e-KTP specific fields
+            # e-KTP specific fields (new additions)
+            'full_name': f"{first_name} {last_name}",
             'birth_place': fake.city(),
+            'birth_date': fake.date_of_birth(minimum_age=22, maximum_age=65).strftime('%d-%m-%Y'),
             'blood_type': random.choice(['A', 'B', 'AB', 'O', '-']),
+            'address': fake.street_address(),
             'rt_rw': f"{random.randint(1, 20):03d}/{random.randint(1, 15):03d}",
-            'issue_date': fake.date_between(start_date='-10y', end_date='today').strftime('%d-%m-%Y'),
+            'village_kelurahan': fake.city_suffix() + " " + fake.city(),
+            'district_kecamatan': "Kecamatan " + fake.city(),
+            'religion': random.choice(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya']),
+            'marital_status': random.choice(['Belum Menikah', 'Menikah', 'Duda/Janda']),
+            'occupation': fake.job(),
+            'nationality': 'WNI',
+            'valid_until': 'SEUMUR HIDUP',
+            'province': fake.state(),
+            'regency_city': city,
             
             # Contact Information (Indonesian format)
             'email': f"{first_name.lower()}.{last_name.lower()}@{fake.domain_name()}",
@@ -335,8 +345,6 @@ def generate_indonesian_job_application_data(num_records=50):
             'biggest_weakness': random.choice(['Perfeksionis', 'Public Speaking', 'Delegasi', 'Manajemen Waktu']),
             
             # Indonesian specific fields
-            'religion': random.choice(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya']),
-            'marital_status': random.choice(['Belum Menikah', 'Menikah', 'Duda/Janda']),
             'bpjs_number': f"BPJS-{random.randint(10000000, 99999999)}" if random.choice([True, False]) else '',
             'npwp_number': f"{random.randint(10, 99)}.{random.randint(100, 999)}.{random.randint(100, 999)}.{random.randint(1, 9)}-{random.randint(100, 999)}.{random.randint(100, 999)}" if random.choice([True, False]) else '',
             
@@ -378,7 +386,7 @@ if __name__ == "__main__":
     save_to_csv(dummy_data)
     
     # Display sample data structure
-    print(f"\n📋 Indonesian data structure overview:")
+    print("\n📋 Indonesian data structure overview:")
     sample_record = dummy_data[0]
     categories = {
         'Info Aplikasi': ['application_id', 'application_date', 'application_status'],
@@ -397,7 +405,7 @@ if __name__ == "__main__":
             if field in sample_record:
                 print(f"  {field}: {sample_record[field]}")
     
-    print(f"\n🎯 Sample Indonesian record preview:")
+    print("\n🎯 Sample Indonesian record preview:")
     print(f"Nama: {sample_record['first_name']} {sample_record['last_name']}")
     print(f"Posisi: {sample_record['position_applied']}")
     print(f"Pengalaman: {sample_record['total_experience']}")

@@ -1,13 +1,11 @@
 import csv
-from reportlab.lib.pagesizes import letter, A4
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch, cm
+from reportlab.lib.units import inch
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
+from reportlab.lib.enums import TA_CENTER
 from reportlab.pdfgen import canvas
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 import os
 from datetime import datetime
 
@@ -446,9 +444,9 @@ def process_csv_and_generate_indonesian_pdfs(csv_filename='indonesian_job_applic
                     print(f"❌ Error generating PDF for {row.get('first_name', 'Unknown')} {row.get('last_name', '')}: {e}")
             
         print(f"\n🎉 Successfully generated {len(generated_files)} Indonesian PDF job application forms!")
-        print(f"📁 Files saved in 'indonesian_pdf_forms' folder")
-        print(f"📄 Each PDF contains Indonesian formatting with cultural context")
-        print(f"🇮🇩 Features: Indonesian names, addresses, companies, and terminology")
+        print("📁 Files saved in 'indonesian_pdf_forms' folder")
+        print("📄 Each PDF contains Indonesian formatting with cultural context")
+        print("🇮🇩 Features: Indonesian names, addresses, companies, and terminology")
         
     except Exception as e:
         print(f"❌ Error reading CSV file: {e}")
