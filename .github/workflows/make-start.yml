@@ -19,10 +19,7 @@ jobs:
         python-version: '3.11'
 
     - name: Install dependencies
-      run: |
-        python3 -m venv venv
-        source venv/bin/activate
-        pip install faker==19.6.2 reportlab==4.0.4 Pillow
+      run: pip install faker==19.6.2 reportlab==4.0.4 Pillow
 
     - name: Run Make Start
       run: make start
