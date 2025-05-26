@@ -46,14 +46,12 @@ jobs:
 
     # ZIP-kan hasil output sebelum upload ke release
     - name: Zip output files for release
-      if: github.event_name == 'release'
       run: |
         zip -r indonesian_pdf_forms.zip indonesian_pdf_forms
         zip -r indonesian_ktp.zip indonesian_ktp
 
     # Upload semua output ke release
     - name: Upload outputs to GitHub Release
-      if: github.event_name == 'release'
       uses: softprops/action-gh-release@v2
       with:
         files: |
