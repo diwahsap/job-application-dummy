@@ -7,7 +7,7 @@ This project generates dummy Indonesian job application data, PDF forms, and e-K
 - Generate CSV data for job applications
 - Create personalized PDF forms
 - Generate e-KTP images from data
-- Easy setup with `make` commands
+- Easy setup with `make` command
 
 ## Requirements
 
