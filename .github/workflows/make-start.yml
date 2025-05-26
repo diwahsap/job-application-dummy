@@ -54,7 +54,7 @@ jobs:
     # Upload semua output ke release
     - name: Upload outputs to GitHub Release
       if: github.event_name == 'release'
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v2.2.2
       with:
         files: |
           indonesian_job_applications.csv
